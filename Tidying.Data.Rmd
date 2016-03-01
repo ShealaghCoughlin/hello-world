@@ -1,0 +1,46 @@
+---
+title: "Tidying Data"
+author: "Shealagh Coughlin"
+date: "March 1, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+getwd()
+##Read taxi lookup
+taxi_zone_lookup.data <- read.csv("taxi-zone-lookup.csv")
+## Read uber-raw-data-janjune-15.csv.zip
+uber_raw_janjun.data <- read.csv("uber-raw-data-janjune-15.csv")
+## Read individual months of Uber Data, April 2014 through September 2014
+uber_raw_april14 <- read.csv("uber-raw-data-apr14.csv")
+uber_raw_may14 <- read.csv("uber-raw-data-may14.csv")
+uber_raw_june14 <- read.csv("uber-raw-data-jun14.csv")
+uber_raw_july14 <- read.csv("uber-raw-data-jul14.csv")
+uber_raw_august14 <- read.csv("uber-raw-data-aug14.csv")
+uber_raw_september14 <- read.csv("uber-raw-data-sep14.csv")
+
+American_B01362 <- read.csv("//nbcuni.ge.com/Users/us-nyc/Home-029/206445196/NBCU_Roaming/MyDocuments/Springboard Class/uber-tlc-foil-response-master/other-FHV-data/American_B01362.csv")
+
+
