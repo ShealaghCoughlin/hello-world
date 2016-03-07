@@ -1,0 +1,23 @@
+titanic_original <- read.csv("//nbcuni.ge.com/Users/us-nyc/Home-029/206445196/NBCU_Roaming/MyDocuments/Springboard Class/Springboard Section 3 Tutorial/titanic_original.csv")
+
+titanic_df <- titanic_original
+
+#port of embarkation
+titanic_df[169, 11] = "S"
+titanic_df[285, 11] = "S"
+
+#age
+library(dplyr)
+mean_age <- mean(titanic_df$age, na.rm=TRUE)
+mean_age
+titanic_df$age[is.na(titanic_df$age)] <- mean_age
+
+#lifeboat
+titanic_df$boat <- sub("^$", "NA", titanic_df$boat)
+View(titanic_df)
+
+#cabin
+titanic_df$has_cabin_number <- as.numeric(titanic_df$cabin != "")
+
+#write new file
+write.csv(titanic_df, file = "titanic_clean.csv")
