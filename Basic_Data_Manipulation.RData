@@ -1,0 +1,47 @@
+#import dataset
+refine_df <- read.csv("//nbcuni.ge.com/Users/us-nyc/Home-029/206445196/NBCU_Roaming/MyDocuments/Springboard Class/Springboard Section 3 Tutorial/refine_original.csv")
+colnames(refine_df)
+str(refine_df)
+
+#lowercase company name
+library(dplyr)
+refine_df["company"] <- mutate_each(refine_df["company"], funs(tolower))
+View(refine_df)
+
+#Clean Up Brand Names
+refine_df$company[grep("uni", refine_df$company)] <- "unilever"
+refine_df$company[grep("ak", refine_df$company)] <- "akzo"
+refine_df$company[grep("ips", refine_df$company)] <- "philips"
+refine_df$company[grep("van", refine_df$company)] <- "van houten"
+
+#separate product code and number
+library(stringr)
+split_columns <- data.frame(do.call(rbind, strsplit(as.vector(refine_df$Product.code...number), split = "-")))
+names(split_columns) <- c("product_code", "product_number")
+refine_df <- cbind.data.frame(refine_df, split_columns)
+View(refine_df)
+
+#add product categories
+library(dplyr)
+refine_df$product_category = refine_df$product_code
+refine_df$product_category <- as.character(refine_df$product_category)
+refine_df$product_category[refine_df$product_category == "p"] <- "Smartphone"
+refine_df$product_category[refine_df$product_category == "v"] <- "TV"
+refine_df$product_category[refine_df$product_category == "x"] <- "Laptop"
+refine_df$product_category[refine_df$product_category == "q"] <- "Tablet"
+
+#full address column
+refine_df$full_address <- paste(refine_df$address, refine_df$city, refine_df$country, sep=",")
+
+#creating dummy variables
+refine_df$company_philips <- as.numeric(refine_df$company == "philips")
+refine_df$company_akzo <- as.numeric(refine_df$company == "akzo")
+refine_df$company_van_houten <- as.numeric(refine_df$company == "van houten")
+refine_df$company_unilever <- as.numeric(refine_df$company == "unilever")
+
+refine_df$product_smartphone <- as.numeric(refine_df$product_category == "Smartphone")
+refine_df$product_tv <- as.numeric(refine_df$product_category == "TV")
+refine_df$product_laptop <- as.numeric(refine_df$product_category == "Laptop")
+refine_df$product_tablet <- as.numeric(refine_df$product_category == "Tablet")
+
+write.csv(refine_df, file = "refine_clean.csv")
